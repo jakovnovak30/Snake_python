@@ -3,7 +3,7 @@ import random
 
 #inicijalizacija
 pygame.init()
-displej = pygame.display.set_mode((500, 500))
+displej = pygame.display.set_mode((540, 540))
 pygame.display.update()
 pygame.display.set_caption('Ovo je originalni snejk koji opci neje kopija s interneta')
 traje = True
@@ -49,15 +49,15 @@ while traje:
     if len(lista) > duljina:
         del lista[0]
 
-    if x1 < 5:
-        x1 = 495
-    elif x1 > 495:
-        x1 = 0
+    if x1 < 40:
+        x1 = 535
+    elif x1 > 535:
+        x1 = 40
 
-    if y1 < 5:
-        y1 = 495
-    elif y1 > 495:
-        y1 = 0
+    if y1 < 40:
+        y1 = 535
+    elif y1 > 535:
+        y1 = 40
 
     glavica = []
     glavica.append(x1)
