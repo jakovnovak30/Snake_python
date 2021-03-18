@@ -20,8 +20,8 @@ y1_change = 0
 vura = pygame.time.Clock()
 lista = []
 duljina = 1
-foodx = round(random.randrange(10, 490))
-foody = round(random.randrange(10, 490))
+foodx = round(random.randrange(50, 530))
+foody = round(random.randrange(50, 530))
 
 #dok igra traje
 while traje:
@@ -73,8 +73,8 @@ while traje:
 
     if x1 <= foodx + 10 and x1 >= foodx-10 and y1 <= foody+10 and y1 >= foody-10:
         duljina = duljina + 1
-        foodx = round(random.randrange(10, 490))
-        foody = round(random.randrange(10, 490))
+        foodx = round(random.randrange(50, 530))
+        foody = round(random.randrange(50, 530))
 
     if duljina > 1:
         for tocka in lista[:-1]:
