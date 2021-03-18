@@ -11,6 +11,12 @@ pygame.display.set_caption('Ovo je originalni snejk koji opci neje kopija s inte
 def Loop():
     traje = True
 
+    # 0 -gore, 1 - dole
+    # 2 - levo, 3 - desno
+
+    trenutni = 0
+    prosli = 0
+
     boja1 = (255, 0 , 0)
     boja2 = (255, 255, 255)
     boja3 = (0,255,0)
@@ -35,15 +41,19 @@ def Loop():
                 if event.key == pygame.K_LEFT:
                     x1_change = -10
                     y1_change = 0
+                    trenutni = 2 #ide levo
                 elif event.key == pygame.K_RIGHT:
                     x1_change = 10
                     y1_change = 0
+                    trenutni = 3 #ide desno
                 elif event.key == pygame.K_UP:
                     y1_change = -10
                     x1_change = 0
+                    trenutni = 0 #ide gore
                 elif event.key == pygame.K_DOWN:
                     y1_change = 10
                     x1_change = 0
+                    trenutni = 1 #ide dole
 
         x1 = x1 + x1_change
         y1 = y1 + y1_change
@@ -78,7 +88,17 @@ def Loop():
             foodx = round(random.randrange(50, 530))
             foody = round(random.randrange(50, 530))
 
-        if duljina > 1:
+        ignore = False
+        if trenutni == 1 and prosli == 0:
+            ignore = True
+        elif trenutni == 0 and prosli == 1:
+            ignore = True
+        elif trenutni == 2 and prosli == 3:
+            ignore = True
+        elif trenutni == 3 and prosli == 2:
+            ignore = True
+
+        if duljina > 1 and not ignore:
             for tocka in lista[:-1]:
                 if tocka[0] == x1 and tocka[1] == y1:
                     displej.fill(pozadina)
@@ -106,6 +126,7 @@ def Loop():
         displej.blit(mesg, [10, 10])
 
         pygame.display.update()
+        prosli = trenutni
         vura.tick(25)
 
 Loop()
