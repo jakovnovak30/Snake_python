@@ -10,7 +10,7 @@ pygame.display.set_caption('Ovo je originalni snejk koji opci neje kopija s inte
 
 def Loop():
     traje = True
-
+    krepase = False
     # 0 -gore, 1 - dole
     # 2 - levo, 3 - desno
 
@@ -55,7 +55,20 @@ def Loop():
                     brzina = 50
                     reza = "skor5.txt"
             vura.tick(25)
-        
+
+    displej.fill(pozadina)
+    mesg = pygame.font.SysFont("comicsansms", 20).render('Hoćete prolaziti kroz rubove igre? (y/n)', True, boja3)
+    displej.blit(mesg, [100, 100])
+    pygame.display.update()
+    game_mode=-1 #0-cvrsto, 1-prolazno
+    while game_mode==-1:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_y:
+                    game_mode = 1
+                elif event.key == pygame.K_n:
+                    game_mode = 0
+        vura.tick(25)            
     #dok igra traje
     while traje:
         for event in pygame.event.get():
@@ -85,16 +98,24 @@ def Loop():
 
         if len(lista) > duljina:
             del lista[0]
-
-        if x1 < 40:
-            x1 = 535
-        elif x1 > 535:
-            x1 = 40
-
-        if y1 < 40:
-            y1 = 535
-        elif y1 > 535:
-            y1 = 40
+        if game_mode == 1:
+            if x1 < 40:
+                x1 = 535
+            elif x1 > 535:
+                x1 = 40
+            if y1 < 40:
+                y1 = 535
+            elif y1 > 535:
+                y1 = 40
+        else:
+            if x1 < 40:
+                krepase = True
+            elif x1 > 535:
+                krepase = True
+            if y1 < 40:
+                krepase = True
+            elif y1 > 535:
+                krepase = True
 
         glavica = []
         glavica.append(x1)
@@ -126,20 +147,22 @@ def Loop():
         if duljina > 1 and not ignore:
             for tocka in lista[:-1]:
                 if tocka[0] == x1 and tocka[1] == y1:
-                    displej.fill(pozadina)
-                    mesg = pygame.font.SysFont("comicsansms", 20).render('Gejm over. Press r to replay or q to quit', True, boja3)
-                    displej.blit(mesg, [100, 100])
-                    pygame.display.update()
-                    while True:
-                        for event in pygame.event.get():
-                            if event.type == pygame.KEYDOWN:
-                                if event.key == pygame.K_q:
-                                    pygame.quit()
-                                    quit()
-                                elif event.key == pygame.K_r:
-                                    Loop()
-                            vura.tick(25)
+                    krepase = True
 
+        if krepase == True:
+            displej.fill(pozadina)
+            mesg = pygame.font.SysFont("comicsansms", 20).render('Gejm over. Press r to replay or q to quit', True, boja3)
+            displej.blit(mesg, [100, 100])
+            pygame.display.update()
+            while True:
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == pygame.K_q:
+                            pygame.quit()
+                            quit()
+                        elif event.key == pygame.K_r:
+                            Loop()
+                    vura.tick(25)
 
         file = open(reza, "r")
         high = file.read()
