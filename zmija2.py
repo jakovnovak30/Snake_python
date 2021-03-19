@@ -35,19 +35,25 @@ def Loop():
     displej.blit(mesg, [100, 100])
     pygame.display.update()
     brzina = 0;
+    reza = " "
     while brzina == 0:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:
                     brzina = 10
+                    reza = "skor1.txt"
                 elif event.key == pygame.K_2:
                     brzina = 20
+                    reza = "skor2.txt"
                 elif event.key == pygame.K_3:
                     brzina = 30
+                    reza = "skor3.txt"
                 elif event.key == pygame.K_4:
                     brzina = 40
+                    reza = "skor4.txt"
                 elif event.key == pygame.K_5:
                     brzina = 50
+                    reza = "skor5.txt"
             vura.tick(25)
         
     #dok igra traje
@@ -135,11 +141,11 @@ def Loop():
                             vura.tick(25)
 
 
-        file = open("skor.txt", "r")
+        file = open(reza, "r")
         high = file.read()
         if duljina-1 > int(high):
             high = str(duljina-1)
-            file = open("skor.txt", "w")
+            file = open(reza, "w")
             file.write(high)
 
         mesg = pygame.font.SysFont("comicsansms", 35).render('Skor: ' + str(duljina-1) + '              Haj skor: ' + high, True, boja3)
