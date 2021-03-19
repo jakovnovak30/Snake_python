@@ -74,7 +74,8 @@ def Loop():
         for event in pygame.event.get():
     #        print("Pygame.info: " + str(event))
             if event.type == pygame.QUIT:
-                traje = False
+                pygame.quit()
+                quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     x1_change = -10
